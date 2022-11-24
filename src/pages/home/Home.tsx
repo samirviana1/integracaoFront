@@ -1,21 +1,21 @@
-import { Copyright } from "@mui/icons-material";
-import { Button, CssBaseline } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import {Copyright} from "@mui/icons-material";
+import {Button, CssBaseline} from "@mui/material";
+import {Box, Container} from "@mui/system";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import InputHome from "../../components/input/InputHome";
 import Tabela from "../../components/table/Tabela";
 import UserBar from "../../components/usebar/UseBar";
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-import { Mensagem, setNovaMensagem } from "../store/sliceMensagens";
-import { TrabalhoDeModulo } from "../store/rootReducer";
-import { useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {v4 as uuidv4} from "uuid";
+import {Mensagem, setNovaMensagem} from "../store/sliceMensagens";
+import {TrabalhoDeModulo} from "../store/rootReducer";
+import {useState} from "react";
 
 function Home() {
   const dispacth = useDispatch();
   const usuariologado = useSelector(
-    ({ usuarios }: TrabalhoDeModulo) => usuarios.usuarioOn!
+    ({usuarios}: TrabalhoDeModulo) => usuarios.usuarioOn!
   );
   const [descricao, setDescricao] = useState("");
   const [detalhamento, setDetalhamento] = useState("");
@@ -27,9 +27,9 @@ function Home() {
       detalhamento: detalhamento,
       idUsuario: usuariologado.id,
     };
+    dispacth(setNovaMensagem(mensagemNova));
     setDescricao("");
     setDetalhamento("");
-    dispacth(setNovaMensagem(mensagemNova));
   };
   return (
     <>
@@ -46,10 +46,16 @@ function Home() {
           }}
         >
           <UserBar usuario={""} />
-          <Box component={Paper} sx={{ width: "100%" }}>
-            <Stack direction="row" spacing={1} sx={{ padding: 1 }}>
-              <InputHome />
-              <InputHome />
+          <Box component={Paper} sx={{width: "100%"}}>
+            <Stack direction="row" spacing={1} sx={{padding: 1}}>
+              <InputHome
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+              <InputHome
+                value={detalhamento}
+                onChange={(e) => setDetalhamento(e.target.value)}
+              />
               <Button onClick={salvarMensagens} variant="contained">
                 Salvar
               </Button>
@@ -57,7 +63,7 @@ function Home() {
           </Box>
           <Tabela />
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{mt: 5}} />
       </Container>
     </>
   );

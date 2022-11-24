@@ -10,7 +10,7 @@ function ButtonLog({ onClick }: IbuttonLogPros) {
       variant="contained"
       sx={{ mt: 3, mb: 2 }}
     >
-      Cadastrar
+      Entrar
     </Button>
   );
 }

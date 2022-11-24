@@ -1,15 +1,15 @@
-import { useState } from "react";
+import {useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Copyright } from "@mui/icons-material";
-import { Paper } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import {Copyright} from "@mui/icons-material";
+import {Paper} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/input/Input";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import ButtonCad from "../../components/button/ButtonCad";
 import {
   setNovoUsuario,
@@ -17,7 +17,7 @@ import {
   Usuario,
   UsuarioEstado,
 } from "../store/sliceUsuario";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 interface Mensagem {
   id: string;
@@ -39,7 +39,8 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
-  const [errors, setError] = useState(false);
+  const [errors, setError] = useState(0);
+  const [mensagemErro, setMensagemErro] = useState("");
   const navigate = useNavigate();
 
   const limpaCampos = () => {
@@ -49,19 +50,27 @@ function Signup() {
     setRepetirSenha("");
   };
 
+  function isValidEmail(email: any) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+
   const handleSignup = (): Boolean => {
     if (!name || !email || !senha || !repetirSenha) {
-      setError(true);
+      setError(1);
+      setMensagemErro("Erro campos Vazios!");
       return false;
     }
-    if (senha.length >= 5) {
-      setError(true);
+    if (senha.length <= 5) {
+      setError(2);
+      setMensagemErro("Senha tem que ter no minimo 5 caracteres ");
       return false;
     }
     if (senha !== repetirSenha) {
-      setError(true);
+      setError(3);
+      setMensagemErro("As senhas precisam ser iguais!");
       return false;
     }
+
     return true;
   };
 
@@ -105,54 +114,69 @@ function Signup() {
             marginTop: 20,
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Cadastro
           </Typography>
-          <Box component="form" sx={{ mt: 3 }}>
+          <Box component="section" sx={{mt: 3}}>
             <Input
-              error={errors}
+              error={errors === 1 ? true : false}
               value={name}
               label="Digite seu primeiro nome"
               type="text"
               autoComplete="nome"
-              onChange={(e) => [setName(e.target.value), setError(false)]}
+              helperText={mensagemErro}
+              onChange={(e) => {
+                setName(e.target.value);
+                setError(0);
+              }}
             />
 
             <Input
+              error={errors === 1 ? true : false}
               value={email}
               label="Didite seu e-mail"
               type="email"
               autoComplete="email"
-              onChange={(e) => [setEmail(e.target.value), setError(false)]}
+              helperText={mensagemErro}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError(0);
+              }}
             />
 
             <Input
+              error={errors === 1 || errors === 2 ? true : false}
               value={senha}
               label="Digite uma senha"
               type="password"
               autoComplete="senha"
-              onChange={(e) => [setSenha(e.target.value), setError(false)]}
+              helperText={mensagemErro}
+              onChange={(e) => {
+                setSenha(e.target.value);
+                setError(0);
+              }}
             />
 
             <Input
-              error
+              error={errors === 1 || errors === 3 ? true : false}
               value={repetirSenha}
               label="Digite a senha novamente"
               type="password"
               autoComplete="repetirSenha"
-              onChange={(e) => [
-                setRepetirSenha(e.target.value),
-                setError(false),
-              ]}
+              helperText={mensagemErro}
+              onChange={(e) => {
+                setRepetirSenha(e.target.value);
+                setError(0);
+              }}
             />
             <ButtonCad onClick={cadastrar} />
             <Link to="/">Entra</Link>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{mt: 5}} />
       </Container>
     </>
   );
@@ -160,4 +184,4 @@ function Signup() {
 
 export default Signup;
 
-export type { Usuariio, Mensagem };
+export type {Usuariio, Mensagem};

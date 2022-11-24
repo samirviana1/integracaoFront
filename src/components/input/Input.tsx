@@ -5,6 +5,7 @@ interface InputProps {
   label: string;
   type?: string;
   autoComplete: string;
+  helperText: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -14,6 +15,7 @@ function Input({
   label,
   type,
   autoComplete,
+  helperText,
   onChange,
 }: Partial<InputProps>) {
   return (
@@ -26,6 +28,7 @@ function Input({
         value={value}
         label={label}
         type={type}
+        helperText={helperText}
         onChange={onChange}
         autoComplete={autoComplete}
       />

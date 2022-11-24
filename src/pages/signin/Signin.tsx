@@ -1,19 +1,18 @@
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Copyright } from "@mui/icons-material";
+import {Copyright} from "@mui/icons-material";
 import Input from "../../components/input/Input";
 import ButtonLog from "../../components/button/ButtonLog";
-import { Paper } from "@mui/material";
-import { setUsuarioOn, userSelectAll, Usuario } from "../store/sliceUsuario";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {Paper} from "@mui/material";
+import {setUsuarioOn, userSelectAll, Usuario} from "../store/sliceUsuario";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate, Link} from "react-router-dom";
+import {useState} from "react";
 
 function Signin(): JSX.Element {
   const dispatch = useDispatch();
@@ -27,6 +26,7 @@ function Signin(): JSX.Element {
     const usuarioLogado = usuarioRedux.listaUsuario.find(
       (usuario: Usuario) => usuario.email === email && usuario.senha === senha
     );
+
     if (!usuarioLogado) {
       alert("E-mail ou senha incorretas");
       setSenha("");
@@ -54,35 +54,41 @@ function Signin(): JSX.Element {
           marginTop: 20,
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
         <Box
-          component="form"
+          component="section"
           sx={{
             mt: 1,
           }}
         >
-          <Input label="Digite seu E-mail" type="email" autoComplete="email" />
+          <Input
+            label="Digite seu E-mail"
+            type="email"
+            autoComplete="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <Input
             label="Digite sua Senha"
             type="password"
             autoComplete="password"
+            onChange={(e) => setSenha(e.target.value)}
           />
 
           <ButtonLog onClick={Logar}></ButtonLog>
 
           <Grid container>
             <Grid item>
-              <Link></Link>
+              <Link to="/signup">Cadastre-se</Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Copyright sx={{mt: 8, mb: 4}} />
     </Container>
   );
 }

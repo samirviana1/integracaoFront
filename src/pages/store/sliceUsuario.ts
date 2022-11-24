@@ -43,8 +43,8 @@ const usuarioSlice = createSlice({
   name: "usuarios",
   initialState,
   reducers: {
-    setNovoUsuario: (state, ation) => {
-      state.listaUsuario = [...state.listaUsuario, ation.payload];
+    setNovoUsuario: (state, action) => {
+      state.listaUsuario = [...state.listaUsuario, action.payload];
     },
     setUsuarioOn: (state, action) => {
       state.usuarioOn = action.payload;
