@@ -34,6 +34,7 @@ function Home() {
   return (
     <>
       <Container component="main" min-width="xs" maxWidth="xl">
+        <UserBar usuario={usuariologado.name} />
         <CssBaseline />
         <Box
           sx={{
@@ -45,7 +46,6 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <UserBar usuario={""} />
           <Box component={Paper} sx={{width: "100%"}}>
             <Stack direction="row" spacing={1} sx={{padding: 1}}>
               <InputHome

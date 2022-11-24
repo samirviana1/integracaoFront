@@ -1,4 +1,4 @@
-import { TrabalhoDeModulo } from "./rootReducer";
+import {TrabalhoDeModulo} from "./rootReducer";
 import {
   createSlice,
   createAsyncThunk,
@@ -41,9 +41,13 @@ const mensagensSlice = createSlice({
     setNovaMensagem: (state, action) => {
       state.listaMensagem = [...state.listaMensagem, action.payload];
     },
+    setNovaListaDeMensagens: (state, action) => {
+      state.listaMensagem = [action.payload];
+    },
   },
   extraReducers: {},
 });
 
-export const { setNovaMensagem } = mensagensSlice.actions;
+export const {setNovaMensagem, setNovaListaDeMensagens} =
+  mensagensSlice.actions;
 export default mensagensSlice.reducer;

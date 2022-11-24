@@ -60,7 +60,7 @@ function Signup() {
       setMensagemErro("Erro campos Vazios!");
       return false;
     }
-    if (senha.length <= 5) {
+    if (senha.length < 5) {
       setError(2);
       setMensagemErro("Senha tem que ter no minimo 5 caracteres ");
       return false;

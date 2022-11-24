@@ -1,11 +1,11 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import {AppBar, Toolbar, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { Box } from "@mui/system";
-import { Link, useNavigate } from "react-router-dom";
-import { setUsuarioOff } from "../../pages/store/sliceUsuario";
-import { useDispatch } from "react-redux";
+import {Box} from "@mui/system";
+import {Link, useNavigate} from "react-router-dom";
+import {setUsuarioOff} from "../../pages/store/sliceUsuario";
+import {useDispatch} from "react-redux";
 
 interface IUserPros {
   usuario: string;
@@ -38,7 +38,7 @@ function stringAvatar(name: string) {
   };
 }
 
-function UserBar({ usuario }: IUserPros) {
+function UserBar({usuario}: IUserPros) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const deslogar = () => {
@@ -47,14 +47,24 @@ function UserBar({ usuario }: IUserPros) {
   };
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+      <Box
+        sx={{
+          flexGrow: 1,
+          marginTop: 1,
+          marginBottom: 2,
+        }}
+      >
+        <AppBar position="sticky">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{flexGrow: 1, height: "90px"}}
+            >
               Bem vindo(a) {usuario}! <Avatar {...stringAvatar(usuario)} />
             </Typography>
             <Link to="/">
-              <Button onClick={deslogar} color="inherit">
+              <Button onClick={deslogar} variant="contained" color="warning">
                 Deslogar
               </Button>
             </Link>

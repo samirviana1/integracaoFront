@@ -29,15 +29,15 @@ export default function Tabela() {
   const listaMensagem = useSelector(
     (state: TrabalhoDeModulo) => state.mensagens.listaMensagem
   );
-  const [linha, setLinha] = useState<Mensagem[]>([]);
+  const [row, setRow] = useState<Mensagem[]>([]);
   useEffect(() => {
     if (listaMensagem.length) {
-      setLinha(listaMensagem);
+      setRow(listaMensagem);
     }
   }, [listaMensagem]);
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{overflow: "auto"}}>
         <Table sx={{minWidth: 700}} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -48,14 +48,15 @@ export default function Tabela() {
             </TableRow>
           </TableHead>
 
-          {linha.length && (
+          {row.length && (
             <TableBody>
-              {linha.map((mensagens, index) => {
+              {row.map((mensagens, index) => {
                 return (
                   <MensagensRow
                     detalhamento={mensagens.detalhamento}
                     descricao={mensagens.descricao}
                     id={index + 1}
+                    msgId={mensagens.id}
                   ></MensagensRow>
                 );
               })}
