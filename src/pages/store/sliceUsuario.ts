@@ -1,6 +1,6 @@
-import { Slide } from "@mui/material";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TrabalhoDeModulo } from "./rootReducer";
+import {Slide} from "@mui/material";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {TrabalhoDeModulo} from "./rootReducer";
 
 export interface Usuario {
   id: string;
@@ -56,6 +56,6 @@ const usuarioSlice = createSlice({
   extraReducers: {},
 });
 
-export const { setNovoUsuario, setUsuarioOn, setUsuarioOff } =
+export const {setNovoUsuario, setUsuarioOn, setUsuarioOff} =
   usuarioSlice.actions;
 export default usuarioSlice.reducer;

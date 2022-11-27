@@ -20,6 +20,12 @@ export interface MensagemEstado {
     texto: string;
   };
   listaMensagem: Array<Mensagem>;
+  showModal: {
+    open: boolean;
+    type: string;
+  };
+
+  selectId: string | null;
 }
 
 const initialState: MensagemEstado = {
@@ -30,6 +36,11 @@ const initialState: MensagemEstado = {
     texto: "",
   },
   listaMensagem: [],
+  showModal: {
+    open: false,
+    type: "",
+  },
+  selectId: null,
 };
 
 export const mensagensSelectAll = (state: TrabalhoDeModulo) => state.mensagens;
@@ -41,13 +52,39 @@ const mensagensSlice = createSlice({
     setNovaMensagem: (state, action) => {
       state.listaMensagem = [...state.listaMensagem, action.payload];
     },
-    setNovaListaDeMensagens: (state, action) => {
-      state.listaMensagem = [action.payload];
+    removeMensagensbyID: (state, action) => {
+      const id = action.payload;
+      const filterMensagens = state.listaMensagem.filter((i) => i.id !== id);
+      state.listaMensagem = filterMensagens;
+    },
+    updadeMensagembyID: (state, action) => {
+      const {id, descricao, detalhamento} = action.payload;
+
+      const index = state.listaMensagem.findIndex((i) => i.id === id);
+
+      const editMsg: Mensagem = {
+        id,
+        descricao,
+        detalhamento,
+        idUsuario: state.listaMensagem[index].idUsuario,
+      };
+      state.listaMensagem.splice(index, 1, editMsg);
+    },
+    setSelectId: (state, action) => {
+      state.selectId = action.payload;
+    },
+    setShowModal: (state, action) => {
+      state.showModal = action.payload;
     },
   },
   extraReducers: {},
 });
 
-export const {setNovaMensagem, setNovaListaDeMensagens} =
-  mensagensSlice.actions;
+export const {
+  setNovaMensagem,
+  removeMensagensbyID,
+  updadeMensagembyID,
+  setSelectId,
+  setShowModal,
+} = mensagensSlice.actions;
 export default mensagensSlice.reducer;

@@ -1,10 +1,11 @@
-import { TextField } from "@mui/material";
+import {TextField} from "@mui/material";
 interface InputProps {
   value: string;
   label: string;
   type?: string;
   autoComplete: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function InputHome({
@@ -13,6 +14,7 @@ function InputHome({
   type,
   autoComplete,
   onChange,
+  onClick,
 }: Partial<InputProps>) {
   return (
     <>
@@ -23,6 +25,7 @@ function InputHome({
         label={label}
         type={type}
         onChange={onChange}
+        onClick={onClick}
         autoComplete={autoComplete}
       />
     </>

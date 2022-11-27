@@ -14,6 +14,8 @@ import {useSelector} from "react-redux";
 import {TrabalhoDeModulo} from "../../pages/store/rootReducer";
 import {useEffect, useState} from "react";
 import {Mensagem} from "../../pages/store/sliceMensagens";
+import {userSelectAll} from "../../pages/store/sliceUsuario";
+import {Typography} from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -26,44 +28,60 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
 }));
 
 export default function Tabela() {
+  const {usuarioOn} = useSelector(userSelectAll);
   const listaMensagem = useSelector(
     (state: TrabalhoDeModulo) => state.mensagens.listaMensagem
   );
   const [row, setRow] = useState<Mensagem[]>([]);
   useEffect(() => {
     if (listaMensagem.length) {
-      setRow(listaMensagem);
+      const minhaMensagens = listaMensagem.filter(
+        (i) => i.idUsuario === usuarioOn?.id
+      );
+      setRow(minhaMensagens);
     }
   }, [listaMensagem]);
   return (
     <>
-      <TableContainer component={Paper} sx={{overflow: "auto"}}>
-        <Table sx={{minWidth: 700}} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="center">ID</StyledTableCell>
-              <StyledTableCell align="center">Detalhes</StyledTableCell>
-              <StyledTableCell align="center">Descrição</StyledTableCell>
-              <StyledTableCell align="center">Ações</StyledTableCell>
-            </TableRow>
-          </TableHead>
+      {row.length ? (
+        <TableContainer component={Paper}>
+          <Table
+            sx={{minWidth: 700, overflow: "auto"}}
+            aria-label="customized table"
+          >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">ID</StyledTableCell>
+                <StyledTableCell align="center">Detalhes</StyledTableCell>
+                <StyledTableCell align="center">Descrição</StyledTableCell>
+                <StyledTableCell align="center">Ações</StyledTableCell>
+              </TableRow>
+            </TableHead>
 
-          {row.length && (
-            <TableBody>
-              {row.map((mensagens, index) => {
-                return (
-                  <MensagensRow
-                    detalhamento={mensagens.detalhamento}
-                    descricao={mensagens.descricao}
-                    id={index + 1}
-                    msgId={mensagens.id}
-                  ></MensagensRow>
-                );
-              })}
-            </TableBody>
-          )}
-        </Table>
-      </TableContainer>
+            {row.length && (
+              <TableBody>
+                {row.map((mensagens, index) => {
+                  console.log(mensagens.id);
+
+                  return (
+                    <MensagensRow
+                      detalhamento={mensagens.detalhamento}
+                      descricao={mensagens.descricao}
+                      id={index + 1}
+                      chave={mensagens.id}
+                      key={mensagens.id}
+                    ></MensagensRow>
+                  );
+                })}
+              </TableBody>
+            )}
+          </Table>
+        </TableContainer>
+      ) : (
+        <>
+          <Typography>Crie sua primeira mensagem!</Typography>
+        </>
+      )}
     </>
   );
 }

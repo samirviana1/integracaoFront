@@ -1,13 +1,24 @@
-import { Button, Stack } from "@mui/material";
+import {Button, Stack} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {setSelectId, setShowModal} from "../../pages/store/sliceMensagens";
+type EditPros = {
+  id: string;
+};
+function ButtonEditAssignment({id}: EditPros) {
+  const dispatch = useDispatch();
 
-function ButtonEditAssignment() {
+  const showModalEdit = (key: string) => {
+    dispatch(setShowModal({open: true, type: "editar"}));
+    dispatch(setSelectId(key));
+  };
   return (
-    <Stack spacing={2} direction="row">
+    <Stack spacing={1} direction="row">
       <Button
+        onClick={() => showModalEdit(id)}
         fullWidth
         variant="contained"
         color="success"
-        sx={{ mt: 3, mb: 2 }}
+        sx={{mt: 1, mb: 1}}
       >
         Editar
       </Button>

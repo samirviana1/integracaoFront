@@ -29,14 +29,14 @@ interface mensagensRowProps {
   detalhamento: string;
   descricao: string;
   id: number;
-  msgId: string;
+  chave: string;
 }
 
 const MensagensRow: React.FC<mensagensRowProps> = ({
   detalhamento,
   descricao,
   id,
-  msgId,
+  chave,
 }) => {
   return (
     <StyledTableRow>
@@ -44,8 +44,8 @@ const MensagensRow: React.FC<mensagensRowProps> = ({
       <StyledTableCell align="center">{detalhamento}</StyledTableCell>
       <StyledTableCell align="center">{descricao}</StyledTableCell>
       <StyledTableCell align="center">
-        <ButtonEditAssignment></ButtonEditAssignment>
-        <ButtonDelAssignment msgId={msgId}></ButtonDelAssignment>
+        <ButtonEditAssignment id={chave}></ButtonEditAssignment>
+        <ButtonDelAssignment id={chave}></ButtonDelAssignment>
       </StyledTableCell>
     </StyledTableRow>
   );

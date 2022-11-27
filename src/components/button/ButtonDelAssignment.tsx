@@ -4,40 +4,28 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   MensagemEstado,
   mensagensSelectAll,
-  setNovaListaDeMensagens,
+  removeMensagensbyID,
+  setSelectId,
+  setShowModal,
 } from "../../pages/store/sliceMensagens";
 
-function ButtonDelAssignment(msgId: any) {
+type DelPros = {
+  id: string;
+};
+function ButtonDelAssignment({id}: DelPros) {
   const dispatch = useDispatch();
-
-  const mensagensEstado: MensagemEstado = useSelector(mensagensSelectAll);
-
-  function deletarMensagem(idMsg: any) {
-    //apagar mensagem do redux persist
-    const stringMsg = idMsg.msgId;
-
-    console.log("Old List >>", mensagensEstado.listaMensagem);
-
-    const mensagemAlvoIndex = mensagensEstado.listaMensagem.findIndex(
-      (m) => m.id === stringMsg
-    );
-    console.log("MensagenmAlvoIndex >>", mensagemAlvoIndex);
-
-    const newList = mensagensEstado.listaMensagem.splice(mensagemAlvoIndex, 1);
-
-    console.log("newList >>", newList);
-
-    // dispatch(setNovaListaDeMensagens(newList));
-  }
-
+  const deletarMensagem = (key: string) => {
+    dispatch(setShowModal({open: true, type: "apagar"}));
+    dispatch(setSelectId(key));
+  };
   return (
-    <Stack spacing={2} direction="row">
+    <Stack spacing={1} direction="row">
       <Button
-        onClick={() => deletarMensagem(msgId)}
+        onClick={() => deletarMensagem(id)}
         color="error"
         fullWidth
         variant="contained"
-        sx={{mt: 3, mb: 2}}
+        sx={{mt: 1, mb: 1}}
       >
         Delete
       </Button>

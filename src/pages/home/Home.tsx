@@ -11,12 +11,16 @@ import {v4 as uuidv4} from "uuid";
 import {Mensagem, setNovaMensagem} from "../store/sliceMensagens";
 import {TrabalhoDeModulo} from "../store/rootReducer";
 import {useState} from "react";
+import ModalMsg from "../../components/modal/Modal";
 
 function Home() {
   const dispacth = useDispatch();
   const usuariologado = useSelector(
     ({usuarios}: TrabalhoDeModulo) => usuarios.usuarioOn!
   );
+
+  console.log(usuariologado);
+
   const [descricao, setDescricao] = useState("");
   const [detalhamento, setDetalhamento] = useState("");
 
@@ -27,6 +31,11 @@ function Home() {
       detalhamento: detalhamento,
       idUsuario: usuariologado.id,
     };
+    if (mensagemNova.descricao === "" || mensagemNova.detalhamento === "") {
+      alert("Não é possível enviar valores vazios!");
+      return;
+    }
+
     dispacth(setNovaMensagem(mensagemNova));
     setDescricao("");
     setDetalhamento("");
@@ -65,6 +74,7 @@ function Home() {
         </Box>
         <Copyright sx={{mt: 5}} />
       </Container>
+      <ModalMsg />
     </>
   );
 }

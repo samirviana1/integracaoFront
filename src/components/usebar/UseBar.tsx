@@ -1,7 +1,6 @@
 import {AppBar, Toolbar, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
 import {Box} from "@mui/system";
 import {Link, useNavigate} from "react-router-dom";
 import {setUsuarioOff} from "../../pages/store/sliceUsuario";
