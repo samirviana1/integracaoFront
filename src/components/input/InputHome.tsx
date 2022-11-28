@@ -19,6 +19,7 @@ function InputHome({
   return (
     <>
       <TextField
+        sx={{background: "#fffafa"}}
         required
         fullWidth
         value={value}

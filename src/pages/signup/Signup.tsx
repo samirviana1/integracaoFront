@@ -34,13 +34,13 @@ interface Usuariio {
 }
 function Signup() {
   const dispatch = useDispatch();
+  const regexEmail = /\S+@\S+.\S+/;
+
   const usuarioRedux: UsuarioEstado = useSelector(userSelectAll);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
-  const [errors, setError] = useState(0);
-  const [mensagemErro, setMensagemErro] = useState("");
   const navigate = useNavigate();
 
   const limpaCampos = () => {
@@ -50,24 +50,22 @@ function Signup() {
     setRepetirSenha("");
   };
 
-  function isValidEmail(email: any) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
-
   const handleSignup = (): Boolean => {
     if (!name || !email || !senha || !repetirSenha) {
-      setError(1);
-      setMensagemErro("Erro campos Vazios!");
+      alert("Erro campos Vazios!");
+      return false;
+    }
+
+    if (!regexEmail.test(email)) {
+      alert("Seu E-mail não é valido!");
       return false;
     }
     if (senha.length < 5) {
-      setError(2);
-      setMensagemErro("Senha tem que ter no minimo 5 caracteres ");
+      alert("Senha tem que ter no minimo 5 caracteres ");
       return false;
     }
     if (senha !== repetirSenha) {
-      setError(3);
-      setMensagemErro("As senhas precisam ser iguais!");
+      alert("As senhas precisam ser iguais!");
       return false;
     }
 
@@ -122,54 +120,42 @@ function Signup() {
           </Typography>
           <Box component="section" sx={{mt: 3}}>
             <Input
-              error={errors === 1 ? true : false}
               value={name}
               label="Digite seu primeiro nome"
               type="text"
               autoComplete="nome"
-              helperText={mensagemErro}
               onChange={(e) => {
                 setName(e.target.value);
-                setError(0);
               }}
             />
 
             <Input
-              error={errors === 1 ? true : false}
               value={email}
               label="Didite seu e-mail"
               type="email"
               autoComplete="email"
-              helperText={mensagemErro}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setError(0);
               }}
             />
 
             <Input
-              error={errors === 1 || errors === 2 ? true : false}
               value={senha}
               label="Digite uma senha"
               type="password"
               autoComplete="senha"
-              helperText={mensagemErro}
               onChange={(e) => {
                 setSenha(e.target.value);
-                setError(0);
               }}
             />
 
             <Input
-              error={errors === 1 || errors === 3 ? true : false}
               value={repetirSenha}
               label="Digite a senha novamente"
               type="password"
               autoComplete="repetirSenha"
-              helperText={mensagemErro}
               onChange={(e) => {
                 setRepetirSenha(e.target.value);
-                setError(0);
               }}
             />
             <ButtonCad onClick={cadastrar} />

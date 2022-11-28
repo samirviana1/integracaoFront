@@ -1,12 +1,4 @@
-import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Stack,
-} from "@mui/material";
+import {Modal, Box, Typography, Button, Paper, Stack} from "@mui/material";
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -56,41 +48,9 @@ export default function ModalMsg() {
     dispatch(updadeMensagembyID(novaMsg));
     handleClose();
   };
+
   return (
     <>
-      {showModal.type === "apagar" && (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          sx={{display: "flex", justifyContent: "center", alignItems: "center"}}
-        >
-          <Paper elevation={12}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "400px",
-                height: "200px",
-                background: "#808080",
-                padding: "10px",
-                flexDirection: "column",
-              }}
-            >
-              <Box sx={{padding: "4px"}}>
-                <Typography>Deseja realmente apagar a mensagem?</Typography>
-              </Box>
-
-              <Box sx={{marginTop: "55px"}}>
-                <Button onClick={handleClose} variant="contained" color="error">
-                  Cancelar
-                </Button>
-                <Button onClick={() => handleComfirme(selectId!)}>
-                  Comfirme
-                </Button>
-              </Box>
-            </Box>
-          </Paper>
-        </Modal>
-      )}
       {showModal.type === "editar" && (
         <Modal
           open={open}
@@ -103,26 +63,30 @@ export default function ModalMsg() {
                 display: "flex",
                 width: "400px",
                 height: "250px",
-                background: "#808080",
+                background: "#FAEBD7",
                 padding: "10px",
                 flexDirection: "column",
+                borderRadius: "10px",
               }}
             >
-              <Box sx={{padding: "4px"}}>
+              <Box sx={{padding: "10px"}}>
                 <Stack
                   direction="column"
                   spacing={1}
                   sx={{
                     padding: 1,
+                    color: "white",
                   }}
                 >
                   <InputHome
                     value={detalhamento}
+                    label="Digite nova mensagem:"
                     onChange={(e) => setDetalhamento(e.target.value)}
                     onClick={() => setDetalhamento("")}
                   />
                   <InputHome
                     value={descricao}
+                    label="Digite nova descricão:"
                     onChange={(e) => setDescricao(e.target.value)}
                     onClick={() => setDescricao("")}
                   />
@@ -130,13 +94,75 @@ export default function ModalMsg() {
               </Box>
 
               <Box sx={{marginTop: "20px"}}>
-                <Button onClick={handleClose} variant="contained" color="error">
+                <Button
+                  sx={{margin: "0px 30px 0px 20px"}}
+                  onClick={handleClose}
+                  variant="contained"
+                  color="error"
+                >
                   Cancelar
                 </Button>
                 <Button
+                  sx={{marginLeft: "90px"}}
                   variant="contained"
                   color="success"
                   onClick={() => handleEdit(selectId!)}
+                >
+                  Comfirme
+                </Button>
+              </Box>
+            </Box>
+          </Paper>
+        </Modal>
+      )}
+      {showModal.type === "apagar" && (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Paper elevation={12}>
+            <Box
+              sx={{
+                display: "flex",
+                width: "400px",
+                height: "200px",
+                background: "#FAEBD7",
+                padding: "10px",
+                flexDirection: "column",
+                borderRadius: "10px",
+              }}
+            >
+              <Box sx={{padding: "4px", textAlign: "center"}}>
+                <Typography
+                  sx={{
+                    marginTop: "8px",
+                    fontSize: "20px",
+                    fontFamily: "Poppins', sans-serif",
+                  }}
+                >
+                  Deseja realmente apagar a mensagem?
+                </Typography>
+              </Box>
+
+              <Box sx={{marginTop: "40px"}}>
+                <Button
+                  sx={{margin: "0px 30px 0px 10px"}}
+                  onClick={handleClose}
+                  variant="contained"
+                  color="error"
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  sx={{marginLeft: "90px"}}
+                  variant="contained"
+                  color="success"
+                  onClick={() => handleComfirme(selectId!)}
                 >
                   Comfirme
                 </Button>
