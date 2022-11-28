@@ -159,7 +159,16 @@ function Signup() {
               }}
             />
             <ButtonCad onClick={cadastrar} />
-            <Link to="/">Entra</Link>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                fontSize: "18px",
+              }}
+              to="/"
+            >
+              Entra
+            </Link>
           </Box>
         </Box>
         <Copyright sx={{mt: 5}} />

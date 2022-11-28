@@ -83,7 +83,16 @@ function Signin(): JSX.Element {
 
           <Grid container>
             <Grid item>
-              <Link to="/signup">Cadastre-se</Link>
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  fontSize: "18px",
+                }}
+                to="/signup"
+              >
+                Cadastre-se
+              </Link>
             </Grid>
           </Grid>
         </Box>
