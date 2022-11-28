@@ -6,9 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import {deepOrange, green} from "@mui/material/colors";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import MensagensRow from "../menssagensRow/MensagensRow";
 import {useSelector} from "react-redux";
 import {TrabalhoDeModulo} from "../../pages/store/rootReducer";
@@ -79,7 +76,18 @@ export default function Tabela() {
         </TableContainer>
       ) : (
         <>
-          <Typography>Crie sua primeira mensagem!</Typography>
+          <Typography
+            sx={{
+              fontSize: "20px",
+              margin: "10px",
+              padding: "18px",
+              border: "solid 2px",
+              borderRadius: "10px",
+              background: "#6495ED",
+            }}
+          >
+            Crie sua primeira mensagem!
+          </Typography>
         </>
       )}
     </>
