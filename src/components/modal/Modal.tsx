@@ -6,7 +6,7 @@ import {
   removeMensagensbyID,
   setShowModal,
   updadeMensagembyID,
-} from "../../pages/store/sliceMensagens";
+} from "../../store/sliceMensagens";
 import InputHome from "../input/InputHome";
 export default function ModalMsg() {
   const dispatch = useDispatch();

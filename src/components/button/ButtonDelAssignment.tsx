@@ -7,7 +7,7 @@ import {
   removeMensagensbyID,
   setSelectId,
   setShowModal,
-} from "../../pages/store/sliceMensagens";
+} from "../../store/sliceMensagens";
 
 type DelPros = {
   id: string;

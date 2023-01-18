@@ -8,10 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import MensagensRow from "../menssagensRow/MensagensRow";
 import {useSelector} from "react-redux";
-import {TrabalhoDeModulo} from "../../pages/store/rootReducer";
+import {TrabalhoDeModulo} from "../../store/rootReducer";
 import {useEffect, useState} from "react";
-import {Mensagem} from "../../pages/store/sliceMensagens";
-import {userSelectAll} from "../../pages/store/sliceUsuario";
+import {Mensagem} from "../../store/sliceMensagens";
+import {userSelectAll} from "../../store/sliceUsuario";
 import {Typography} from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({

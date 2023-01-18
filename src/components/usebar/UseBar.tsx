@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import {Box} from "@mui/system";
 import {Link, useNavigate} from "react-router-dom";
-import {setUsuarioOff} from "../../pages/store/sliceUsuario";
+import {setUsuarioOff} from "../../store/sliceUsuario";
 import {useDispatch} from "react-redux";
 
 interface IUserPros {

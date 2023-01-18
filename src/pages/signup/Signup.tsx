@@ -16,7 +16,7 @@ import {
   userSelectAll,
   Usuario,
   UsuarioEstado,
-} from "../store/sliceUsuario";
+} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 
 interface Mensagem {
