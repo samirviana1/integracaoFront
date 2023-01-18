@@ -12,6 +12,7 @@ import Input from "../../components/input/Input";
 import {v4 as uuidv4} from "uuid";
 import ButtonCad from "../../components/button/ButtonCad";
 import {
+  postCadastro,
   setNovoUsuario,
   userSelectAll,
   Usuario,
@@ -33,7 +34,7 @@ interface Usuariio {
   mensagens?: Array<Mensagem>;
 }
 function Signup() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const regexEmail = /\S+@\S+.\S+/;
 
   const usuarioRedux: UsuarioEstado = useSelector(userSelectAll);
@@ -90,7 +91,7 @@ function Signup() {
         email: email,
         senha: senha,
       };
-      dispatch(setNovoUsuario(usuarioNovo));
+      dispatch(postCadastro({name, email, senha}));
 
       alert("Conta criada...");
       limpaCampos();

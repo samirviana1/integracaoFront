@@ -1,4 +1,3 @@
-
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
@@ -10,18 +9,13 @@ import {Copyright} from "@mui/icons-material";
 import Input from "../../components/input/Input";
 import ButtonLog from "../../components/button/ButtonLog";
 import {Paper} from "@mui/material";
-import {
-  postLogin,
-  setUsuarioOn,
-  userSelectAll,
-  Usuario,
-} from "../../store/sliceUsuario";
+import {postLogin, userSelectAll, Usuario} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, Link} from "react-router-dom";
 import {useState} from "react";
 
 function Signin(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const usuarioRedux = useSelector(userSelectAll);
 
   const navigate = useNavigate();
