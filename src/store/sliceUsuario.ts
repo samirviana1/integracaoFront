@@ -45,11 +45,27 @@ export const postCadastro = createAsyncThunk(
   }
 );
 
-export const postLogin = createAsyncThunk<any, any>(
+export const postLogin = createAsyncThunk(
   "login/post",
-  async (body) => {
+  async (body: object) => {
     const response = await instace.doPost(body);
+    if (response?.status !== 200) {
+      return null;
+    }
     return response?.data;
+  }
+);
+
+export const getAllUser = createAsyncThunk(
+  "getAllUser/get",
+  async (_, {dispatch}) => {
+    const response = await instace.doGet("/users");
+    if (response?.status !== 200) {
+      dispatch(setListaUsuario([]));
+      return null;
+    }
+    dispatch(setListaUsuario(response.data.dados));
+    return null;
   }
 );
 
@@ -59,8 +75,8 @@ const usuarioSlice = createSlice({
   name: "usuarios",
   initialState,
   reducers: {
-    setNovoUsuario: (state, action) => {
-      state.listaUsuario = [...state.listaUsuario, action.payload];
+    setListaUsuario: (state, action) => {
+      state.listaUsuario = action.payload;
     },
     setUsuarioOn: (state, action) => {
       state.usuarioOn = action.payload;
@@ -81,6 +97,6 @@ const usuarioSlice = createSlice({
   },
 });
 
-export const {setNovoUsuario, setUsuarioOn, setUsuarioOff} =
+export const {setListaUsuario, setUsuarioOn, setUsuarioOff} =
   usuarioSlice.actions;
 export default usuarioSlice.reducer;

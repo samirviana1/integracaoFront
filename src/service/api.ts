@@ -7,7 +7,8 @@ class Api {
 
   setBaseURL() {
     const api = axios.create({
-      baseURL: "http://localhost:8081",
+      //baseURL: "http://localhost:8081",
+      baseURL: "https://api-recados-growdev.vercel.app",
       headers: {
         "Content-type": "application/json",
       },
@@ -15,9 +16,9 @@ class Api {
     return api;
   }
 
-  async doGet() {
+  async doGet(url: string) {
     try {
-      const response = await axios.get("/users");
+      const response = await axios.get(url);
       return response;
     } catch (error) {
       if (error instanceof AxiosError) {

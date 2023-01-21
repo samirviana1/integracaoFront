@@ -12,35 +12,24 @@ import {Paper} from "@mui/material";
 import {postLogin, userSelectAll, Usuario} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, Link} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Signin(): JSX.Element {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const usuarioRedux = useSelector(userSelectAll);
 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const Logar = () => {
-    const usuarioLogado = usuarioRedux.listaUsuario.find(
-      (usuario: Usuario) => usuario.email === email && usuario.senha === senha
-    );
-
-    if (!usuarioLogado) {
-      alert("E-mail ou senha incorretas");
-      setSenha("");
-      setEmail("");
-    } else {
-      const usuarioOnline = {
-        id: usuarioLogado.id,
-        name: usuarioLogado.name,
-        email: usuarioLogado.email,
-      };
-      const data = {email, senha};
-      dispatch(postLogin(data));
+  useEffect(() => {
+    if (usuarioRedux.usuarioOn) {
       navigate("/home");
     }
+  }, [usuarioRedux.usuarioOn]);
+  const Logar = () => {
+    const data = {email, senha};
+    dispatch(postLogin(data));
   };
   return (
     <Container component="main" maxWidth="xs">

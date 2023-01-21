@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -12,8 +12,8 @@ import Input from "../../components/input/Input";
 import {v4 as uuidv4} from "uuid";
 import ButtonCad from "../../components/button/ButtonCad";
 import {
+  getAllUser,
   postCadastro,
-  setNovoUsuario,
   userSelectAll,
   Usuario,
   UsuarioEstado,
@@ -27,7 +27,7 @@ interface Mensagem {
 }
 
 interface Usuariio {
-  id: string;
+  id?: string;
   name?: string;
   email: string;
   senha?: string;
@@ -43,6 +43,10 @@ function Signup() {
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, []);
 
   const limpaCampos = () => {
     setName("");
@@ -86,7 +90,6 @@ function Signup() {
       }
 
       const usuarioNovo: Usuariio = {
-        id: uuidv4(),
         name: name,
         email: email,
         senha: senha,
