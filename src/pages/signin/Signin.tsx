@@ -6,13 +6,17 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {Copyright} from "@mui/icons-material";
-import Input from "../../components/input/Input";
-import ButtonLog from "../../components/button/ButtonLog";
 import {Paper} from "@mui/material";
-import {postLogin, setUsuarioOn, userSelectAll, Usuario} from "../../store/sliceUsuario";
+import {
+  postLogin,
+  setUsuarioOn,
+  userSelectAll,
+  Usuario,
+} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, Link} from "react-router-dom";
 import {useState} from "react";
+import Input from "../../components/input/Input";
 
 function Signin() {
   const dispatch = useDispatch();
@@ -23,12 +27,11 @@ function Signin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const Logar = () => {
-    
-
-      dispatch(postLogin({email, senha}));
-      navigate("/home");
-    }
+    const data = {email, senha};
+    dispatch(postLogin(data));
+    navigate("/home");
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

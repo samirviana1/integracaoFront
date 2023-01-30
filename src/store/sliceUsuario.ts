@@ -29,18 +29,15 @@ export interface UsuarioEstado {
 export const postCadastro = createAsyncThunk(
   "cadastro/post",
   async (body: object) => {
-    const response = await instace.doPost("/users", body);
-    if (!response.data.sucesso) {
-      return [];
-    }
-    return response.data.data;
+    const response = await instace.doPost(body);
+    return response?.data;
   }
 );
 
-export const postLogin = createAsyncThunk(
+export const postLogin = createAsyncThunk<object, object>(
   "login/post",
-  async (body: object) => {
-    const response = await instace.doPost("/login", body);
+  async (body: object, {dispatch}) => {
+    const response = await instace.doPost(body);
     return response?.data;
   }
 );
