@@ -1,6 +1,6 @@
-import {Slide} from "@mui/material";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {TrabalhoDeModulo} from "./rootReducer";
+import instace from "../service/api";
 
 export interface Usuario {
   id: string;
@@ -26,6 +26,24 @@ export interface UsuarioEstado {
   usuarioOn: UsuarioLogado | null;
 }
 
+export const postCadastro = createAsyncThunk(
+  "cadastro/post",
+  async (body: object) => {
+    const response = await instace.doPost("/users", body);
+    if (!response.data.sucesso) {
+      return [];
+    }
+    return response.data.data;
+  }
+);
+
+export const postLogin = createAsyncThunk(
+  "login/post",
+  async (body: object) => {
+    const response = await instace.doPost("/login", body);
+    return response?.data;
+  }
+);
 const initialState: UsuarioEstado = {
   loading: false,
   mensagem: {
@@ -53,7 +71,16 @@ const usuarioSlice = createSlice({
       state.usuarioOn = null;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    // @ts-ignore
+    [postCadastro.fulfilled]: (state, action) => {
+      state.mensagem = action.payload;
+    },
+    // @ts-ignore
+    [postLogin.fulfilled]: (state, action) => {
+      state.usuarioOn = action.payload;
+    },
+  },
 });
 
 export const {setNovoUsuario, setUsuarioOn, setUsuarioOff} =

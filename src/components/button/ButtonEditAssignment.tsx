@@ -1,6 +1,6 @@
 import {Button, Stack} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {setSelectId, setShowModal} from "../../pages/store/sliceMensagens";
+import {setSelectId, setShowModal} from "../../store/sliceMensagens";
 type EditPros = {
   id: string;
 };

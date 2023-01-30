@@ -8,8 +8,8 @@ import Tabela from "../../components/table/Tabela";
 import UserBar from "../../components/usebar/UseBar";
 import {useDispatch, useSelector} from "react-redux";
 import {v4 as uuidv4} from "uuid";
-import {Mensagem, setNovaMensagem} from "../store/sliceMensagens";
-import {TrabalhoDeModulo} from "../store/rootReducer";
+import {Mensagem, setNovaMensagem} from "../../store/sliceMensagens";
+import {TrabalhoDeModulo} from "../../store/rootReducer";
 import {useState} from "react";
 import ModalMsg from "../../components/modal/Modal";
 

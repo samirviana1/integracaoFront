@@ -9,14 +9,13 @@ import {Copyright} from "@mui/icons-material";
 import {Paper} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/input/Input";
-import {v4 as uuidv4} from "uuid";
 import ButtonCad from "../../components/button/ButtonCad";
 import {
-  setNovoUsuario,
+  postCadastro,
   userSelectAll,
   Usuario,
   UsuarioEstado,
-} from "../store/sliceUsuario";
+} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 
 interface Mensagem {
@@ -25,13 +24,6 @@ interface Mensagem {
   descricao: string;
 }
 
-interface Usuariio {
-  id: string;
-  name?: string;
-  email: string;
-  senha?: string;
-  mensagens?: Array<Mensagem>;
-}
 function Signup() {
   const dispatch = useDispatch();
   const regexEmail = /\S+@\S+.\S+/;
@@ -84,13 +76,12 @@ function Signup() {
         return false;
       }
 
-      const usuarioNovo: Usuariio = {
-        id: uuidv4(),
-        name: name,
-        email: email,
-        senha: senha,
+      const usuarioNovo: Partial<Usuario> = {
+        name,
+        email,
+        senha,
       };
-      dispatch(setNovoUsuario(usuarioNovo));
+      dispatch(postCadastro(usuarioNovo));
 
       alert("Conta criada...");
       limpaCampos();
@@ -179,4 +170,4 @@ function Signup() {
 
 export default Signup;
 
-export type {Usuariio, Mensagem};
+export type {Usuario, Mensagem};

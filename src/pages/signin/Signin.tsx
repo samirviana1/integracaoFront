@@ -9,12 +9,12 @@ import {Copyright} from "@mui/icons-material";
 import Input from "../../components/input/Input";
 import ButtonLog from "../../components/button/ButtonLog";
 import {Paper} from "@mui/material";
-import {setUsuarioOn, userSelectAll, Usuario} from "../store/sliceUsuario";
+import {postLogin, setUsuarioOn, userSelectAll, Usuario} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, Link} from "react-router-dom";
 import {useState} from "react";
 
-function Signin(): JSX.Element {
+function Signin() {
   const dispatch = useDispatch();
   const usuarioRedux = useSelector(userSelectAll);
 
@@ -23,21 +23,9 @@ function Signin(): JSX.Element {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const Logar = () => {
-    const usuarioLogado = usuarioRedux.listaUsuario.find(
-      (usuario: Usuario) => usuario.email === email && usuario.senha === senha
-    );
+    
 
-    if (!usuarioLogado) {
-      alert("E-mail ou senha incorretas");
-      setSenha("");
-      setEmail("");
-    } else {
-      const usuarioOnline = {
-        id: usuarioLogado.id,
-        name: usuarioLogado.name,
-        email: usuarioLogado.email,
-      };
-      dispatch(setUsuarioOn(usuarioOnline));
+      dispatch(postLogin({email, senha}));
       navigate("/home");
     }
   };
