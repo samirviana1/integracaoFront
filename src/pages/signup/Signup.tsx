@@ -20,6 +20,7 @@ import {
     UsuarioEstado,
 } from '../../store/sliceUsuario';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../store';
 
 interface Mensagem {
     id: string;
@@ -27,15 +28,8 @@ interface Mensagem {
     descricao: string;
 }
 
-interface Usuariio {
-    id?: string;
-    name?: string;
-    email: string;
-    senha?: string;
-    mensagens?: Array<Mensagem>;
-}
 function Signup() {
-    const dispatch = useDispatch<any>();
+    const dispatch = useDispatch<AppDispatch>();
     const regexEmail = /\S+@\S+.\S+/;
 
     const usuarioRedux: UsuarioEstado = useSelector(userSelectAll);
@@ -90,10 +84,10 @@ function Signup() {
                 return false;
             }
 
-            const usuarioNovo: Usuariio = {
-                name: name,
-                email: email,
-                senha: senha,
+            const usuarioNovo: Partial<Usuario> = {
+                name,
+                email,
+                senha,
             };
             dispatch(postCadastro(usuarioNovo));
 
@@ -115,7 +109,8 @@ function Signup() {
                         alignItems: 'center',
                         padding: 2,
                         marginTop: 20,
-                    }}>
+                    }}
+                >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
@@ -169,7 +164,8 @@ function Signup() {
                                 color: 'inherit',
                                 fontSize: '18px',
                             }}
-                            to='/'>
+                            to='/'
+                        >
                             Entra
                         </Link>
                     </Box>
@@ -182,4 +178,4 @@ function Signup() {
 
 export default Signup;
 
-export type { Usuariio, Mensagem };
+export type { Usuario, Mensagem };

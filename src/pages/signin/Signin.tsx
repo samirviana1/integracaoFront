@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -7,14 +6,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Copyright } from '@mui/icons-material';
-import Input from '../../components/input/Input';
-import ButtonLog from '../../components/button/ButtonLog';
 import { Paper } from '@mui/material';
-import { postLogin, userSelectAll } from '../../store/sliceUsuario';
+import { postLogin, userSelectAll, Usuario } from '../../store/sliceUsuario';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AppDispatch } from '../../store';
+import Input from '../../components/input/Input';
+import ButtonLog from '../../components/button/ButtonLog';
 
 function Signin() {
     const dispatch = useDispatch<AppDispatch>();
@@ -47,7 +46,8 @@ function Signin() {
                     alignItems: 'center',
                     padding: 2,
                     marginTop: 20,
-                }}>
+                }}
+            >
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
@@ -58,7 +58,8 @@ function Signin() {
                     component='section'
                     sx={{
                         mt: 1,
-                    }}>
+                    }}
+                >
                     <Input
                         label='Digite seu E-mail'
                         type='email'
@@ -82,7 +83,8 @@ function Signin() {
                                     color: 'inherit',
                                     fontSize: '18px',
                                 }}
-                                to='/signup'>
+                                to='/signup'
+                            >
                                 Cadastre-se
                             </Link>
                         </Grid>
