@@ -1,64 +1,59 @@
-import axios, {AxiosError} from "axios";
+import axios, { AxiosError } from 'axios';
 
 class Api {
-  init() {
-    this.setBaseURL();
-  }
-
-  setBaseURL() {
-    const api = axios.create({
-      //baseURL: "http://localhost:8081",
-      baseURL: "https://api-recados-growdev.vercel.app",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    return api;
-  }
-
-  async doGet(url: string) {
-    try {
-      const response = await axios.get(url);
-      return response;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return error.response;
-      }
+    init() {
+        this.setBaseURL();
     }
-  }
 
-  async doPost(body: object) {
-    try {
-      const response = await axios.post("/users", body);
-      return response;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return error.response;
-      }
+    setBaseURL() {
+        return axios.create({
+            baseURL: 'https://api-recados-growdev.vercel.app',
+        });
     }
-  }
 
-  async doPut(url: string, body: object) {
-    try {
-      const response = await axios.put(url, body);
-      return response;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return error.response;
-      }
+    async doGet(url: string) {
+        try {
+            const response = await this.setBaseURL().get(url);
+            return response;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return error.response;
+            }
+        }
     }
-  }
 
-  async doDelete(url: string) {
-    try {
-      const response = await axios.delete(url);
-      return response;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return error.response;
-      }
+    async doPost(url: string, body: object) {
+        try {
+            const response = await this.setBaseURL().post(url, body);
+            return response;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return error.response;
+            }
+        }
     }
-  }
+
+    async doPut(url: string, body: object) {
+        try {
+            const response = await this.setBaseURL().put(url, body);
+            return response;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return error.response;
+            }
+        }
+    }
+
+    async doDelete(url: string) {
+        try {
+            const response = await this.setBaseURL().delete(url);
+            return response;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return error.response;
+            }
+        }
+    }
 }
 
 const instace = new Api();
