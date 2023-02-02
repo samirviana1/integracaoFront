@@ -7,15 +7,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {Copyright} from "@mui/icons-material";
 import {Paper} from "@mui/material";
-import {
-  postLogin,
-  setUsuarioOn,
-  userSelectAll,
-  Usuario,
-} from "../../store/sliceUsuario";
+import {postLogin, userSelectAll, Usuario} from "../../store/sliceUsuario";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, Link} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Input from "../../components/input/Input";
 
 function Signin() {
@@ -26,10 +21,14 @@ function Signin() {
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  useEffect(() => {
+    if (usuarioRedux.usuarioOn) {
+      navigate("/home");
+    }
+  }, [usuarioRedux.usuarioOn]);
   const Logar = () => {
     const data = {email, senha};
     dispatch(postLogin(data));
-    navigate("/home");
   };
 
   return (

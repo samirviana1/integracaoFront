@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -11,6 +11,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Input from "../../components/input/Input";
 import ButtonCad from "../../components/button/ButtonCad";
 import {
+  getAllUser,
   postCadastro,
   userSelectAll,
   Usuario,
@@ -24,8 +25,16 @@ interface Mensagem {
   descricao: string;
 }
 
+interface Usuariio {
+  id?: string;
+  name?: string;
+  email: string;
+  senha?: string;
+  mensagens?: Array<Mensagem>;
+}
+
 function Signup() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const regexEmail = /\S+@\S+.\S+/;
 
   const usuarioRedux: UsuarioEstado = useSelector(userSelectAll);
@@ -34,6 +43,10 @@ function Signup() {
   const [senha, setSenha] = useState("");
   const [repetirSenha, setRepetirSenha] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, []);
 
   const limpaCampos = () => {
     setName("");

@@ -26,21 +26,6 @@ export interface UsuarioEstado {
   usuarioOn: UsuarioLogado | null;
 }
 
-export const postCadastro = createAsyncThunk(
-  "cadastro/post",
-  async (body: object) => {
-    const response = await instace.doPost(body);
-    return response?.data;
-  }
-);
-
-export const postLogin = createAsyncThunk<object, object>(
-  "login/post",
-  async (body: object, {dispatch}) => {
-    const response = await instace.doPost(body);
-    return response?.data;
-  }
-);
 const initialState: UsuarioEstado = {
   loading: false,
   mensagem: {
@@ -52,14 +37,46 @@ const initialState: UsuarioEstado = {
   usuarioOn: null,
 };
 
+export const postCadastro = createAsyncThunk(
+  "cadastro/post",
+  async (body: object) => {
+    const response = await instace.doPost(body);
+    return response?.data;
+  }
+);
+
+export const postLogin = createAsyncThunk(
+  "login/post",
+  async (body: object) => {
+    const response = await instace.doPost(body);
+    if (response?.status !== 200) {
+      return null;
+    }
+    return response?.data;
+  }
+);
+
+export const getAllUser = createAsyncThunk(
+  "getAllUser/get",
+  async (_, {dispatch}) => {
+    const response = await instace.doGet("/users");
+    if (response?.status !== 200) {
+      dispatch(setListaUsuario([]));
+      return null;
+    }
+    dispatch(setListaUsuario(response.data.dados));
+    return null;
+  }
+);
+
 export const userSelectAll = (state: TrabalhoDeModulo) => state.usuarios;
 
 const usuarioSlice = createSlice({
   name: "usuarios",
   initialState,
   reducers: {
-    setNovoUsuario: (state, action) => {
-      state.listaUsuario = [...state.listaUsuario, action.payload];
+    setListaUsuario: (state, action) => {
+      state.listaUsuario = action.payload;
     },
     setUsuarioOn: (state, action) => {
       state.usuarioOn = action.payload;
@@ -80,6 +97,6 @@ const usuarioSlice = createSlice({
   },
 });
 
-export const {setNovoUsuario, setUsuarioOn, setUsuarioOff} =
+export const {setListaUsuario, setUsuarioOn, setUsuarioOff} =
   usuarioSlice.actions;
 export default usuarioSlice.reducer;
