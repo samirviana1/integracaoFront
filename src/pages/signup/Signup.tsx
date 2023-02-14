@@ -72,7 +72,7 @@ function Signup() {
     return true;
   };
 
-  const cadastrar = async () => {
+  const cadastrar = () => {
     if (handleSignup()) {
       let buscarUsuarios = usuarioRedux.listaUsuario.some(
         (usuario: Usuario) => usuario.email === email
