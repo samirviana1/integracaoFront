@@ -94,7 +94,6 @@ function Signup() {
       alert("Conta criada...");
       limpaCampos();
       navigate("/");
-      console.log(usuarioNovo);
     }
     return true;
   };
