@@ -36,6 +36,7 @@ function Signin() {
     dispatch(postLogin(data));
     console.log(data);
   };
+  console.log(usuarioRedux.usuarioOn);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
